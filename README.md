@@ -1,30 +1,138 @@
-# React + TypeScript + Vite
+# Тарифный калькулятор
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Проект "Тарифный калькулятор" – это React-приложение, разработанное с использованием Vite, позволяющее пользователю выбирать тариф, валюту и период оплаты, а также показывающее сумму для оплаты и скидку при выборе более выгодного периода.
 
-Currently, two official plugins are available:
+## Структура проекта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+tariff-calculator/
+├── public/
+│   └── index.html
+├── src/
+│   ├── api/
+│   │   └── currencyService/
+│   │   │   └── currencyService.ts
+│   ├── components/
+│   │   ├── CurrencySelector.jsx
+│   │   ├── PeriodSelector.jsx
+│   │   ├── Summary.jsx
+│   │   ├── TariffCalculator.jsx
+│   │   └── TariffSelector.jsx
+│   ├── styles/
+│   │   └── GlobalStyles.js
+│   ├── utils/
+│   │   ├── constants/
+│   │   │   ├── apiUrl.ts
+│   │   │   ├── currencyType.ts
+│   │   │   ├── tarrifs.ts
+│   │   │   ├── tarrifType.ts
+│   │   │   └── timeIntervals.ts
+│   │   └── functions/
+│   │   │   ├── getDiscount.ts
+│   │   │   └── getTotal.ts
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+├── .gitignore
+├── package.json
+├── README.md
+└── vite.config.js
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### API
+
+- **currencyService**: Сервис для обращения к API
+
+### Компоненты
+
+- **CurrencySelector.jsx**: Компонент для выбора валюты.
+- **PeriodSelector.jsx**: Компонент для выбора периода оплаты (месяц или год).
+- **Summary.jsx**: Компонент для отображения суммы для оплаты и суммы скидки.
+- **TariffCalculator.jsx**: Основной компонент калькулятора тарифов, объединяющий все остальные компоненты.
+- **TariffSelector.jsx**: Компонент для выбора тарифа.
+
+### Стили
+
+- **GlobalStyles.js**: Глобальные стили, применяющиеся ко всему приложению.
+
+### Основные файлы
+
+- **App.jsx**: Главный компонент приложения.
+- **main.jsx**: Точка входа в приложение.
+
+### Utils
+
+- **constants**: Константы приложения
+- **functions**: Вспомогательные функции
+
+## Эксплуатация
+
+### Установка
+
+1. Клонируйте репозиторий на ваш локальный компьютер:
+
+   ```sh
+   git clone https://github.com/WoobotGJR/tariff-calculator.git
+   ```
+
+2. Перейдите в папку проекта:
+
+   ```sh
+   cd tariff-calculator
+   ```
+
+3. Установите зависимости:
+
+   ```sh
+   npm install
+   ```
+
+### Запуск проекта
+
+Для запуска проекта в режиме разработки выполните команду:
+
+```sh
+npm run dev
+```
+
+Проект будет запущен на `http://localhost:5173`. Откройте этот URL в вашем браузере, чтобы увидеть приложение.
+
+### Сборка проекта
+
+Для создания оптимизированной сборки для продакшена выполните команду:
+
+```sh
+npm run build
+```
+
+Созданная сборка будет находиться в папке `dist`. Вы можете обслуживать этот контент с любого статического сервера.
+
+### Деплой
+
+Для деплоя приложения на сервере, выполните следующие шаги:
+
+1. Создайте сборку проекта:
+
+   ```sh
+   npm run build
+   ```
+
+2. Перенесите содержимое папки `dist` на ваш сервер.
+
+3. Настройте сервер для обслуживания статических файлов из папки `dist`.
+
+## Особенности
+
+- Приложение позволяет выбирать из двух тарифов: "Стандартный" и "Продвинутый".
+- Поддерживаемые валюты: российский рубль (RUB), китайский юань (CNY) и казахстанский тенге (KZT).
+- Периоды оплаты: за месяц и за год.
+- При выборе годового периода рассчитывается и отображается сумма скидки.
+- Курсы валют загружаются с внешнего API при загрузке страницы.
+
+## Зависимости
+
+- TypeScript
+- React
+- Vite
+- Axios
+- styled-components
